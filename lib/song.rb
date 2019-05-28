@@ -37,7 +37,27 @@ class Song
   end
 
   def self.alphabetical
-    self.all.sort_by { |a.name,b.name| a <=> b }
+    self.all.sort { |left, right| left.name <=> right.name }
+  end
+
+  def self.new_from_filename(filename)
+    data = filename.split(" - ")
+    song_name = data[1].chomp(".mp3")
+    song_artist = data[0]
+
+    song = self.new
+    song.name = song_name
+    song.artist_name = song_artist
+    song
+  end
+
+  def self.create_from_filename(filename)
+    song = self.new_from_filename(filename)
+    song.save
+  end
+
+  def self.destroy_all
+    self.all.clear
   end
 
 end
