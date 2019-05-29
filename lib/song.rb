@@ -32,9 +32,7 @@ class Song
   
   def self.find_by_name(name)
      @@all.find{|item| item.name == name}
-
     # @@all.each do |item|
-    
     #   if item.name == name
     #     return item
     #   end
@@ -42,8 +40,16 @@ class Song
     # return false   
   end
   
-  def self.find_or_create_by_name(name)
-  
+  def self.find_or_create_by_name(title)
+    find_res = self.find_by_name(title)
+    find_res ||= self.create_by_name(title)
+    return find_res
+    
+    # if self.find_by_name(title) == nil
+    #   self.create_by_name(title)
+    # else 
+    #   self.find_by_name(title)  
+    # end  
   end 
   
   def self.alphabetical
@@ -63,6 +69,7 @@ class Song
   end
   
   def self.create_from_filename(file)
+    @@all << self.new_from_filename(file)
   end
   
   def self.destroy_all
