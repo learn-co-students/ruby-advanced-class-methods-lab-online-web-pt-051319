@@ -42,6 +42,16 @@ class Song
     self.all.sort_by { |song| song.name }
   end
   
+
+  def self.new_from_filename(song)
+    split_song = song.split(/[-.]/).map(&:strip)
+    new_song = new_by_name(split_song[1])
+  end
+
+  # def self.format_input(song)
+  #   split_song = song.split(/[-.]/).map(&:strip)
+  # end
+  
   def self.new_from_filename(song)
     split_song = song.split(/[-.]/).map(&:strip)
     new_song = new_by_name(split_song[1])
