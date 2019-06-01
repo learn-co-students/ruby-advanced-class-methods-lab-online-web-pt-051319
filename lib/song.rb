@@ -43,24 +43,24 @@ class Song
   end
   
 
-  def self.new_from_filename(song)
-    split_song = song.split(/[-.]/).map(&:strip)
-    new_song = new_by_name(split_song[1])
-  end
-
-  # def self.format_input(song)
-  #   split_song = song.split(/[-.]/).map(&:strip)
+  # def self.new_from_filename(song)
+  #   split_song = song.split(/[-.]/)
+  #   new_song = new_by_name(split_song[1])
   # end
+
+  def self.format_input(song)
+    split_song = song.split(/[-.]/).map(&:strip)
+  end
   
   def self.new_from_filename(song)
-    split_song = song.split(/[-.]/).map(&:strip)
+    split_song = format_input(song)
     new_song = new_by_name(split_song[1])
     new_song.artist_name = split_song[0]
     new_song
   end
   
   def self.create_from_filename(song)
-    split_song = song.split(/[-.]/).map(&:strip)
+    split_song = format_input(song)
     new_song = create_by_name(split_song[1])
     new_song.artist_name = split_song[0]
     new_song
