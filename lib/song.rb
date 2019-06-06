@@ -31,44 +31,38 @@ class Song
   end
   
   def self.find_by_name(name)
-    self.all.find { |element| name == element.name }
+    self.all.find { |song| song.name == name }
   end
   
   def self.find_or_create_by_name(name)
-    find_by_name(name) ? find_by_name(name) : create_by_name(name)
+    self.find_by_name(name) ? self.find_by_name(name) : self.create_by_name(name)
   end
   
   def self.alphabetical
     self.all.sort_by { |song| song.name }
   end
   
-
-  # def self.new_from_filename(song)
-  #   split_song = song.split(/[-.]/)
-  #   new_song = new_by_name(split_song[1])
-  # end
-
-  def self.format_input(song)
-    split_song = song.split(/[-.]/).map(&:strip)
+  def self.parse_filename(filename)
+    song_data = filename.split(/[-.]/).map(&:strip)
+    song_data
   end
   
-  def self.new_from_filename(song)
-    split_song = format_input(song)
-    new_song = new_by_name(split_song[1])
-    new_song.artist_name = split_song[0]
+  def self.new_from_filename(name)
+    song_data = parse_filename(name)
+    new_song = new_by_name(song_data[1])
+    new_song.artist_name = song_data[0]
     new_song
   end
   
-  def self.create_from_filename(song)
-    split_song = format_input(song)
-    new_song = create_by_name(split_song[1])
-    new_song.artist_name = split_song[0]
+  def self.create_from_filename(name)
+    song_data = parse_filename(name)
+    new_song = self.create_by_name(song_data[1])
+    new_song.artist_name = song_data[0]
     new_song
   end
   
   def self.destroy_all
     self.all.clear
   end
-
+  
 end
-
