@@ -33,18 +33,21 @@ class Song
   end
 
   def self.find_or_create_by_name
+    
   end
 
   def self.alphabetical
   end
 
   def self.new_from_filename
+
   end
 
   def self.create_from_filename
+
   end
 
   def self.destroy_all
-    self.all.clear 
+    self.all.clear
   end
 end
