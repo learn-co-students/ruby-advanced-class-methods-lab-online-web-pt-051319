@@ -50,9 +50,12 @@ class Song
   def self.new_from_filename(filename)
 
     files = filename.split(" - ")
-    song_name = files
-    artist_name = files 
+    song_name = files[1].split(".")[0]
+    artist_name = files[0]
 
+    song = Song.create_by_name(song_name)
+    song.artist_name = artist_name
+    song
 
   end
 
