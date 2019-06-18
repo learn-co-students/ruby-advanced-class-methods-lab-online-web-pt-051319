@@ -1,3 +1,4 @@
+require 'pry'
 class Song
   attr_accessor :name, :artist_name
   @@all = []
@@ -24,6 +25,7 @@ class Song
 
   def self.create_by_name(name)
     song = self.create
+    #binding.pry
     song.name = name
     song
   end
@@ -33,22 +35,33 @@ class Song
   end
 
   def self.find_or_create_by_name(name)
-      self.find_by_name(name) || self.create_by_name(name)
+    #  binding.pry
+      if self.find_by_name(name)
+      self.find_by_name(name)
+    else
+      self.create_by_name(name)
+    end
   end
 
   def self.alphabetical
   self.all.sort_by {|a| a.name }
   end
 
-  def self.new_from_filename
+  def self.new_from_filename(filename)
+
+    files = filename.split(" - ")
+    song_name = files
+    artist_name = files 
+
 
   end
 
-  def self.create_from_filename
+  def self.create_from_filename(filename)
 
   end
 
   def self.destroy_all
     self.all.clear
   end
+
 end
