@@ -35,7 +35,9 @@ class Song
   end
   
   def self.find_or_create_by_name(name)
-    self.find_by_name(name) ? self.find_by_name(name) : self.create_by_name(name)
+    self.find_by_name(name) || self.create_by_name(name)
+
+    #self.find_by_name(name) ? self.find_by_name(name) : self.create_by_name(name)
   end
   
   def self.alphabetical
@@ -49,16 +51,17 @@ class Song
   
   def self.new_from_filename(name)
     song_data = parse_filename(name)
-    new_song = new_by_name(song_data[1])
+    new_song = self.new_by_name(song_data[1])
     new_song.artist_name = song_data[0]
     new_song
   end
   
   def self.create_from_filename(name)
-    song_data = parse_filename(name)
-    new_song = self.create_by_name(song_data[1])
-    new_song.artist_name = song_data[0]
-    new_song
+    self.new_from_filename(name).save
+    # song_data = parse_filename(name)
+    # new_song = self.create_by_name(song_data[1])
+    # new_song.artist_name = song_data[0]
+    # new_song
   end
   
   def self.destroy_all
